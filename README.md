@@ -31,4 +31,4 @@ To modify or improve the program, you may modify the following elements :
   - The epsilon-greedy policy itself
   - The neural network mapping states to values Q(s, a)
   
-  ![alt text](https://user-images.githubusercontent.com/42830320/54880205-99ffd880-4e42-11e9-8f95-f1cb4e0de0d9.png)
+  ![alt text](https://user-images.githubusercontent.com/42830320/54880249-1a263e00-4e43-11e9-8aa4-48ba1f6173ea.png)
