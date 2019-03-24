@@ -30,7 +30,5 @@ To modify or improve the program, you may modify the following elements :
   - an update scheme for epsilon
   - The epsilon-greedy policy itself
   - The neural network mapping states to values Q(s, a)
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA5MjM2NjI3Nl19
--->
+  
+  ![alt text](https://drive.google.com/open?id=1lrtHMgK_Rzl6PhLsKMB2bY1p017eGoTH)
