@@ -1,5 +1,7 @@
 # Self-driving car with Deep-Q Network
 
+## Commands to run to execute this project
+
 Start by installing the requirements:
 ```
 sudo pip3 install -r requirements
@@ -16,6 +18,8 @@ python3 -m run_test --model='my_weights.h5'
 ```
 
 -----------------
+
+## How to modify/improve the code
 
 To modify or improve the program, you may modify the following elements :
 
