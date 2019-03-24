@@ -16,14 +16,14 @@ Then you must implement in:
   - The neural network mapping states to values Q(s, a)
 
 
-To train your reinforcement learning agent with some parameters:
+To train your reinforcement learning agent with some parameters, move to the directory scripts (cd scripts) and run:
 ```
-python3 -m scripts.run_train --num_episodes=20 --output='my_weights.h5'
+python3 -m run_train --num_episodes=20 --output='my_weights.h5'
 ```
 
 To test your trained agent in a greedy way (saved in the .h5 file):
 ```
-python3 -m scripts.run_test --model='my_weights.h5'
+python3 -m run_test --model='my_weights.h5'
 ```
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbMjA5MjM2NjI3Nl19
