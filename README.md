@@ -4,7 +4,7 @@
 
 Start by installing the requirements:
 ```
-sudo pip3 install -r requirements
+sudo pip3 install -r requirements.txt
 ```
 
 To train your reinforcement learning agent with some parameters, move to the directory scripts (cd scripts) and run:
