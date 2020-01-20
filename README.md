@@ -9,12 +9,15 @@ sudo pip3 install -r requirements.txt
 
 To train your reinforcement learning agent with some parameters, move to the directory scripts (cd scripts) and run:
 ```
-python3 -m run_train --num_episodes=20 --output='my_weights.h5'
+python3 -m run_train --num_episodes=20 --output='../my_weights.h5'
 ```
+
+or resuming a training:
+python3 -m run_train --num_episodes=40 --input='../my_weights_resume' --output='../my_weights_resume'
 
 To test your trained agent in a greedy way (saved in the .h5 file):
 ```
-python3 -m run_test --model='my_weights.h5'
+python3 -m run_test --model='../my_weights.h5'
 ```
 
 -----------------

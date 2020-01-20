@@ -3,6 +3,8 @@ import keras.models
 import os
 import random
 import numpy as np
+import pickle
+
 
 from collections import deque
 from keras.models import Sequential
@@ -13,18 +15,23 @@ from keras.layers import Dense
 class DQLAgent(object):
     def __init__(
             self, state_size=-1, action_size=-1,
-            max_steps=200, gamma=0.95, epsilon=1.0, learning_rate=0.1):
+            max_steps=200, gamma=0.95, epsilon=1.0, learning_rate=0.1, count=0, memory=deque(maxlen=2000)):
         self.state_size = state_size
         self.action_size = action_size
         self.max_steps = max_steps
-        self.memory = deque(maxlen=2000)
+        self.memory = memory
         self.gamma = gamma   # discount rate
         self.epsilon = epsilon  # exploration rate
         self.learning_rate = learning_rate  # learning_rate
         if self.state_size > 0 and self.action_size > 0:
             self.model = self.build_model()
 
-        self.count = 0
+        self.count = count
+
+    def attr_to_dict(self):
+        return dict((key, getattr(self, key))
+            for key in dir(self) if not key.startswith('__') and not callable(getattr(self, key))
+        )
 
     def build_model(self):
         """Neural Net for Deep-Q learning Model."""
@@ -40,7 +47,14 @@ class DQLAgent(object):
         self.epsilon = self.epsilon*0.9996
 
     def save(self, output:str):
-        self.model.save(output)
+        if len(output)>0 and output.split('.')[-1] == 'h5':
+            self.model.save(output)
+        else:
+            if not(os.path.isdir(output)):os.mkdir(output)
+            self.model.save(output+'/model.h5')
+            with open(output+'/agent.pickle', 'wb') as f:
+                pickle.dump(self.attr_to_dict(), f, pickle.HIGHEST_PROTOCOL)
+            
 
     def load(self, filename):
         if os.path.isfile(filename):
@@ -48,8 +62,17 @@ class DQLAgent(object):
             self.state_size = self.model.layers[0].input_shape[1]
             self.action_size = self.model.layers[-1].output.shape[1]
             return True
+        elif os.path.isdir(filename):
+            self.model = keras.models.load_model(filename+'/model.h5')
+            with open(filename+'/agent.pickle', 'rb') as f:
+                data = pickle.load(f)
+            for key in data.keys():
+                setattr(self, key, data[key])
+            self.state_size = self.model.layers[0].input_shape[1]
+            self.action_size = self.model.layers[-1].output.shape[1]
+            return True
         else:
-            logging.error('no such file {}'.format(filename))
+            logging.error('no such file or directory {}'.format(filename))
             return False
 
     def remember(self, state, action, reward, next_state, done):
